@@ -27,7 +27,7 @@ async function buildTemplate(tempPath, compPath, tempDistPath) {
   let promises = compFolder.map(file => {
     const fileName = path.basename(file, path.extname(file));
     return fsPromises.readFile(path.join(compPath, file), 'utf-8').then(data => {
-      template = template.replace(`{{${fileName}}}`, data);
+      if (path.extname(file) == '.html') template = template.replace(`{{${fileName}}}`, data);
     });
   });
   await Promise.all(promises);
